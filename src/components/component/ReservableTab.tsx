@@ -1,44 +1,38 @@
-import { useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { useReservableList } from "../../API/TravelMange_axios";
-import useGetData from "../queryData/queryHooks";
+import { useGetPinedList, useReservableList } from "../../API/TravelMange_axios";
 import { Room } from "../../types";
-import { ReservationBox } from "./ReservationBox";
+import  ReservationBox  from "./ReservationBox";
 
 
 export default function ReservableTab() {
-  const queryClient = useQueryClient()
   const [ reservable, setReservable ] = useState<Room[] | []>([])
-  const { data, status } = useReservableList()
 
+  const { data, status } = useReservableList()
+  const pinedList = useGetPinedList()
 
   const id = window.localStorage.getItem('travelId')
   const ended = window.localStorage.getItem('ended')
 
-  // const { data } = queryClient.getQueryData(['@pined']) as any
-  const pineds = useGetData().pined
-  const pinedIds = pineds.pineds.map( (list: { id: number }) => list.id)
-
-
   useEffect(() => {
-    if(status === 'success' && Number(ended) >= 0) setReservable(data?.data)
+    if(status === 'success' 
+        && pinedList.status ==='success'
+        && Number(ended) >= 0) setReservable(data?.data)
   })
   
+
   return (
     <>
     {reservable.length !== 0
      ?
       reservable.map((list: Room) => {
-        const initState = pinedIds.includes(list.id)
-
+        const pineds = pinedList.data?.data
+        const pinedIds = pineds.map( (list: { id: number }) => list.id)
+        const isPined = pinedIds.includes(list.id) 
         return (
           <>
           <S.Div key={list.name}>
-            <ReservationBox  
-              list={list} 
-              id={Number(id)}
-              initState={initState}/>
+            <ReservationBox list={list} id={Number(id)} isPined={isPined}/>
           </S.Div>
           </>
         )

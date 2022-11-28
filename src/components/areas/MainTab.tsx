@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useState, MouseEvent, ReactNode } from "react";
 import styled from "styled-components";
-import { getPinedList } from "../../API/TravelMange_axios";
+import { useGetPinedList } from "../../API/TravelMange_axios";
 import PinedListTab from "../component/PinedListTab";
 import ReservableTab from "../component/ReservableTab";
 import ReservedRoomTab from "../component/ReservedRoomTab";
@@ -9,9 +9,8 @@ import TravelDiaryTab from "../component/TravelDiaryTab";
 
 export default function MainTab() {
   const travelId = window.localStorage.getItem('travelId')
+  console.log('MainTab')
 
-  useQuery(['@pined'], () => getPinedList(Number(travelId)))
-  
   const [ tab, setTab ] = useState<ReactNode>(<ReservedRoomTab />)
   
   const clickTab = (e: MouseEvent<HTMLLIElement>) => {
@@ -30,7 +29,7 @@ export default function MainTab() {
         setTab(<ReservableTab />)
         return
       case "찜 리스트":
-        setTab(<PinedListTab />)
+        setTab(<PinedListTab/>)
         return
       case "여행지 추천":
         setTab(<TravelDiaryTab />)

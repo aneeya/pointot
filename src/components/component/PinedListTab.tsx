@@ -1,35 +1,35 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { useState } from "react"
 import styled from "styled-components"
 import useGetData from "../queryData/queryHooks"
 import { Room } from "../../types"
 import PinedListBox from "./PinedListBox"
+import { useGetPinedList } from "../../API/TravelMange_axios"
 
 
+// interface Props {
+//   pineds: Room[]
+// }
 
 export default function PinedListTab() {
-  const queryData = useGetData().pined
-  const pineds = queryData.pineds
-
-  const [ pinedList, setPinedList ] = useState(pineds)  
+  const [ pineds, setPineds] = useState<Room[] | []>([])
+  const {data, status} = useGetPinedList()
 
   const ended = window.localStorage.getItem('ended')
 
-  const clickUpdate = (id: number) => {
-   const newList = [ ...pinedList ].filter(list => list.id !== id)
-   setPinedList(newList)
-  }
+  useEffect(() => {
+    if(status === 'success')
+    setPineds(data.data)
+  })
 
   return (
     <>
-      {pineds.length !== 0
-        ? pinedList.map((list: Room) => {
+      { pineds.length !== 0
+        ? pineds.map((list: Room) => {
+          const key = list.city + list.name
           return (
             <>
-              <PinedListBox 
-                key={list.name}
-                list={list}  
-                clickUpdate={clickUpdate}/>
+              <PinedListBox key={key} list={list} />
             </>
           )
         })

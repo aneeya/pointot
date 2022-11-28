@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import styled from "styled-components"
 import haus from "../../assets/haus.png"
@@ -6,46 +6,34 @@ import pin from "../../assets/icons/pin.png"
 import pined from "../../assets/icons/pin2.png"
 import { useAddPined, useDeletePined } from "../../API/TravelMange_axios"
 import { Room } from "../../types"
+import useGetData from "../queryData/queryHooks"
 
 interface Props {
   list: Room,
   id: number,
-  initState: boolean
+  isPined: boolean
 }
 
-export function ReservationBox({list, id, initState}: Props) {
-  const [ pinState, setPinState ] = useState(initState)
-  const [ pinStateAtive, setPinStateActive ] = useState(false)
+export default React.memo(function ReservationBox({list, id, isPined}: Props) {
+  console.log(`ReservableBox${list.name}`)
 
   const nav = useNavigate()
-
+  
   const addMutation = useAddPined(id, list)
   const subMutation = useDeletePined(Number(list.id))
     
   const clickPinHandle = () => {
-    setPinState(!pinState)
-    setPinStateActive(true)
+    if(isPined) subMutation.mutate()
+    else addMutation.mutate()
   }
 
-  
-
-  useEffect(() => {
-    if(pinState && pinStateAtive) {
-      console.log(pinStateAtive)
-      addMutation.mutate()
-      if(addMutation.error) setPinState(!pinState)
-    } else if(!pinState && pinStateAtive) {
-        subMutation.mutate()
-        if(subMutation.error) setPinState(!pinState)
-    }
-  }, [pinState])
 
   return (
     <>
       <R.Rayout>
         <R.Img></R.Img>
         <R.Content>
-          <R.Pin role="button" aria-label="저장핀" theme={pinState? pined : pin} onClick={clickPinHandle}/>
+          <R.Pin role="button" aria-label="저장핀" theme={isPined? pined : pin} onClick={clickPinHandle}/>
           <R.H3>{list.name}</R.H3>
           <R.Des>{list.description}</R.Des>
           <R.Button type="button" onClick={() => nav(String(list.id))}>상세보기</R.Button>
@@ -53,7 +41,7 @@ export function ReservationBox({list, id, initState}: Props) {
       </R.Rayout>
     </>
   )
-}
+})
 
 //style
 

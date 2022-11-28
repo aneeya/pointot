@@ -30,7 +30,7 @@ const S: any = {}
 S.Layout = styled.div`
   position: fixed;
   top: 1.5rem;
-  right: 25%;
+  right: 28%;
   z-index: 99999;
 `
 S.Dday = styled.div`

@@ -20,12 +20,11 @@ export default function RoomPage() {
   const [ pinState, setPinState ] = useState(false)
   const [ memo, setMemo ] = useState(false)
 
-  const travelId = window.localStorage.getItem('travelId')
   const param = useParams()
   
   const room = useDetailView(Number(param.room))
   const {data, status} = room
-  const pineds = useGetPinedList(Number(travelId))
+  const pineds = useGetPinedList()
   
   const subMutation = useDeletePined(Number(param.room))
 

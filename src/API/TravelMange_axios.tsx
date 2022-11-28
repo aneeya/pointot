@@ -23,7 +23,7 @@ export const useStoredDates = () => {
 
 //예약가능한 방 불러오기
 
-const getReservable = async() => {
+export const getReservable = async() => {
   const getScheduled = window.localStorage.getItem('selectedSchedule')
   const city = JSON.parse(getScheduled!).city
   return await axios.get(`http://localhost:4000/rooms?city=${city}`)
@@ -38,9 +38,9 @@ export const useReservableList = () => {
 }
 
 //핀리스트 추가
-export const postPinedRoom = async(id: number, data: Room) => {
+ const postPinedRoom = async(id: number, data: Room) => {
   data.travelId = id
-  return await axios.post(`http://localhost:4000/pineds/`, data)
+  return await axios.post(`http://localhost:4000/pineds`, data)
 } 
 
 //핀리스트 수정(메모)
@@ -62,12 +62,13 @@ export const useEditMemo = (id: number, memo: string) => {
 
 
 //저장한 핀리스트 불러오기
-export const getPinedList = async(id: number) => {
-  return await axios.get(`http://localhost:4000/travels/${id}?_embed=pineds`)
+export const getPinedList = async() => {
+  const id = window.localStorage.getItem('travelId')
+  return await axios.get(`http://localhost:4000/pineds?travelId?=${id}`)
 }
 
-export const useGetPinedList = (id: number) => {
-  return useQuery(['@pined'], () => getPinedList(id))
+export const useGetPinedList = () => {
+  return useQuery(['@pined'], () => getPinedList())
 }
 
 //핀리스트 추가하기

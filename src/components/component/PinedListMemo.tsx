@@ -30,7 +30,6 @@ export default function PinedListMemo({data, clickMemo}: Props) {
   
   const submitValue = (e: ChangeEvent<HTMLFormElement>) => {
     e.preventDefault()
-    console.log('hi')
     addMutation.mutate()
     if(!addMutation.isSuccess) {
       clickMemo()
