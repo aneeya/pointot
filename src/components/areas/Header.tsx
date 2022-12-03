@@ -5,29 +5,30 @@ import styled from "styled-components"
 
 import logo from "../../assets/logo.png"
 import LoginForm from "../../form/LoginForm"
+import { getUser } from "../storedData/localStorage"
 
 export interface Active {
-  active: boolean
+  logined: boolean,
+  isLogined?: () => void
 }
 
-export default function Header({active}: Active) {
+export default function Header({logined, isLogined}: Active) {
   const [ openLogin, setOpenLogin ] = useState(false)
   const [ userName, setUserName ] = useState('')
   const nav = useNavigate()
 
   const logout = () => {
-    const key = window.localStorage.getItem('key')
     window.localStorage.clear()
-    window.location.replace('http://localhost:3000')
+    isLogined!()
   }
 
   useEffect(() => {
-    if(active) {
-      const name = window.localStorage.getItem('name')
-      setUserName(name!)
+    if(logined) {
+      const { name } = getUser()
+      setUserName(name)
     } 
     return
-  }, [active])
+  }, [logined])
 
   return (
     <>
@@ -37,24 +38,26 @@ export default function Header({active}: Active) {
             <S.Home src={logo} alt="홈으로가기" role="button" onClick={() => nav('/')}/>
           </div>
           <S.LoginDiv>
-            {active 
-              ? 
-              <>
-                <S.Greet><b>{userName}</b>님 반갑습니다!</S.Greet>
-                <S.Span aria-hidden="true">|</S.Span>
-                <S.Button type="button" onClick={() => logout()}>로그아웃</S.Button>
-              </>
-              :
-              <>
-                <S.Button type="button" onClick={() => setOpenLogin(true)}>로그인</S.Button>
-                <S.Span aria-hidden="true">|</S.Span>
-                <S.Button type="button" onClick={() => nav('/join')}>회원가입</S.Button>
-                {openLogin && 
-                <S.FormDiv>
-                  <LoginForm 
-                    onClick={() => setOpenLogin(false)}/>
-                </S.FormDiv>}
-              </>}
+            {
+              logined 
+                ? 
+                <>
+                  <S.Greet><b>{userName}</b>님 반갑습니다!</S.Greet>
+                  <S.Span aria-hidden="true">|</S.Span>
+                  <S.Button type="button" onClick={() => logout()}>로그아웃</S.Button>
+                </>
+                :
+                <>
+                  <S.Button type="button" onClick={() => setOpenLogin(true)}>로그인</S.Button>
+                  <S.Span aria-hidden="true">|</S.Span>
+                  <S.Button type="button" onClick={() => nav('/join')}>회원가입</S.Button>
+                  {openLogin && 
+                  <S.FormDiv>
+                    <LoginForm 
+                      onClick={() => setOpenLogin(false)}/>
+                  </S.FormDiv>}
+                </>
+            }
           </S.LoginDiv>
         </S.Div>
       </S.Header>

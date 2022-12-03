@@ -1,5 +1,5 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query"
-import { ChangeEvent } from "react"
+import { ChangeEvent, useState } from "react"
 import styled from "styled-components"
 import { useStoredDates } from "../../API/TravelMange_axios"
 import Button from "../common/Button"
@@ -13,42 +13,45 @@ interface Props {
 }
 
 export default function SelectingDates({onClick}: Props) {
-  const query = useQueryClient()
-  const {data} = useStoredDates()
+  const { data, status } = useStoredDates()
   
-  const changeValue= (schedule: Schedule) => {
+  const changeValue = (schedule: Schedule) => {
     const { city, id, startDate, endDate, title } = schedule
     window.localStorage.setItem('travelId', String(id))
     window.localStorage.setItem('selectedSchedule', JSON.stringify({title, city, startDate, endDate}))
   }
-    
+  
   const submintValue = (e: ChangeEvent<HTMLFormElement>) => {
     e.preventDefault()
-    onClick()
     window.location.reload()
+    onClick()
   }
 
   return (
     <>
-      <S.Layout>
+      <S.Layout> 
         <S.Spring></S.Spring>
         <S.DateList>
           <S.Logo src={logo} alt="zerobnb"/>
           <S.Form onSubmit={submintValue}>
             <S.SelectDiv>
-              {data?.data.map((date: Schedule) => {
-                const { title, id, startDate, endDate } = date
-                const key = title + id
-                return (
-                  <>
-                    <S.Label key={key}>
-                      <S.Input type="radio" name="selectdDate" onChange={() => changeValue(date)}/>
-                      <S.Title>{title}</S.Title>
-                      <S.Date>{startDate} ~ {endDate}</S.Date>
-                    </S.Label>
-                  </>
-                )
-              })}
+              {
+                status === 'success' 
+                &&
+                data.map((select: Schedule) => {
+                  const { title, id, startDate, endDate } = select
+                  const key = title + id
+                  return (
+                    <>
+                      <S.Label key={key}>
+                        <S.Input type="radio" name="selectdDate" onChange={() => changeValue(select)}/>
+                        <S.Title>{title}</S.Title>
+                        <S.Date>{startDate} ~ {endDate}</S.Date>
+                      </S.Label>
+                    </>
+                  )
+                })
+              }
             </S.SelectDiv>
             <S.ButtonDiv>
               <Button type="submit" text="확인"/>

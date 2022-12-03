@@ -7,6 +7,7 @@ import { useAddPined } from "../../API/TravelMange_axios"
 import { Room } from "../../types"
 
 import Button from "../common/Button"
+import { getTravelId } from "../storedData/localStorage"
 
 interface Props {
   data: Room,
@@ -14,10 +15,10 @@ interface Props {
 }
 
 export default function PinedListMemo({data, clickMemo}: Props) {
-  const travelId = window.localStorage.getItem('travelId')
+  const travelId = getTravelId()
   const [ pinedData, setPinedData ] = useState(data)
 
-  const addMutation = useAddPined(Number(travelId), pinedData)
+  const addMutation = useAddPined(pinedData)
 
   const changeValue = (e: ChangeEvent<HTMLTextAreaElement>) => {
     let timer;

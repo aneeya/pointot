@@ -1,30 +1,28 @@
 import { ChangeEvent, MouseEvent, useEffect, useState } from "react"
-import { useQuery } from "@tanstack/react-query"
 import { useNavigate } from "react-router-dom"
 
 import styled from "styled-components"
 
 import Calendar from "../components/common/Calendar"
 
-import { useCountries } from "../API/CountryList_axios"
 import { useAddSchedule } from "../API/TravelSchedule_axios"
 
 import ico from "../assets/icons/calendar.png"
+import { cityList } from "../components/storedData/cityList"
+import { getUser } from "../components/storedData/localStorage"
 
 const initValue = {
-  email: window.localStorage.getItem('email')!,
+  email: getUser().email,
   title: "",
   city: "",
   startDate: "",
-  endDate: "",
-  postId: Number(window.localStorage.getItem('key'))
+  endDate: ""
 }
 
 export default function ScheduleRegisterFom() {
   const [ schedule, setSchedule ] = useState(initValue) 
   const [ message, setMesseage ] = useState('')
 
-  const { data, status } = useCountries()
   const addMutation = useAddSchedule(schedule)
 
   const nav = useNavigate()
@@ -42,7 +40,6 @@ export default function ScheduleRegisterFom() {
     }
   }
 
- 
   const submitValue = (e: ChangeEvent<HTMLFormElement>) => {
     e.preventDefault()
     addMutation.mutate()
@@ -70,7 +67,7 @@ export default function ScheduleRegisterFom() {
     if(schedule.startDate === '' && schedule.endDate === '') {
       setSchedule({ ...schedule, startDate: pickdate })
     } else if(schedule.startDate !== '' && schedule.endDate === '') {
-      if(Number(startDate) < Number(newDate)) {
+      if(Number(startDate) <= Number(newDate)) {
         setSchedule({ ...schedule, endDate: pickdate })
       } else alert('여행시작일 보다 이전입니다')
     } else if(schedule.startDate !== '' && schedule.endDate !== '') {
@@ -106,11 +103,9 @@ useEffect(() => {
             여행지
             <S.SelectDiv>
               <S.Select as="select" name="city" required onChange={changeValue}>
-                <option selected>{status === 'success' ? '여행지를 선택하세요!': '리스트를 로드하지 못했습니다'}</option>
-                {data?.data.map((data: { cityE: string ; city: string }) => {
-                  
+                <option selected>여행지를 선택하세요!</option>
+                {cityList.map((data: { cityE: string ; city: string }) => {
                   return <option key={data.cityE} value={data.city}>{data.city}</option>
-                  
                 })}
               </S.Select>
               <S.OptionIco></S.OptionIco>

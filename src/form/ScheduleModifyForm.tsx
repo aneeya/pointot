@@ -1,27 +1,22 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { useCountries } from "../API/CountryList_axios";
 import { useEditSchedule } from "../API/TravelSchedule_axios";
 import Calendar from "../components/common/Calendar";
+import { cityList } from "../components/storedData/cityList";
+import { getSelected } from "../components/storedData/localStorage";
 
 
 export default function ScheduleModifyForm() {
-  const getScheduled = window.localStorage.getItem('selectedSchedule')
-  const scheduled = JSON.parse(getScheduled!)
+  const { city, startDate, endDate } = getSelected()
 
-  const initValue = {
-    city: scheduled.city,
-    startDate: scheduled.startDate,
-    endDate: scheduled.endDate
-  }
+  const initValue = { city, startDate, endDate }
 
   const [ schedule, setSchedule ] = useState(initValue)
 
   const nav = useNavigate()
 
-  const { data, status } = useCountries()
-  const editMutation = useEditSchedule(schedule, scheduled)
+  const editMutation = useEditSchedule(schedule)
 
   const pickDate = (pickdate: string) => {
     const startDate = schedule.startDate.replace(/\-/g, '')
@@ -57,10 +52,9 @@ export default function ScheduleModifyForm() {
           <S.Label>
             여행지
             <S.SelectDiv>
-              <S.Select name="city" onChange={changeValue} defaultValue={scheduled.city}>
-                {status !== 'success' && <option>리스트를 로드하지 못했습니다</option>}
-                {data?.data.map((data: { cityE: string ; city: string }) => {
-                  return <option key={data.cityE} value={data.city}>{data.city}</option>
+              <S.Select name="city" onChange={changeValue} defaultValue={city}>
+                {cityList.map((list: { cityE: string ; city: string }) => {
+                  return <option key={list.cityE} value={list.city}>{list.city}</option>
                 })}
               </S.Select>
               <S.OptionIco></S.OptionIco>

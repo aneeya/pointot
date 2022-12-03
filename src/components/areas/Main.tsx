@@ -8,20 +8,30 @@ import carrier from "../../assets/icons/carrier.png"
 import mainimg from "../../assets/mainimg.jpg"
 
 import { Active } from "./Header"
-import MainTab from "./MainTab"
 import PopupLayout from "../layout/PopupLayout"
 import NoticeDday from "../component/NoticeDday"
 import SelectingDates from "../component/SelectingDates"
+import { getTravelId } from "../storedData/localStorage"
 
-export default function Main({active}: Active) {
-  const [ popup, setPopup ] = useState(false)
+export default function Main({logined}: Active) {
+  const [ storedSchedules, setStoredSchedules ] = useState(false)
   const nav = useNavigate()
 
-  const travelId = window.localStorage.getItem('travelId')
+  const travelId = getTravelId()
+
+  const clickReigstSchedule = () => {
+    if(logined) nav('/scheduleResister')
+    else alert('로그인해주세요!')
+  }
     
+  const clickSelectingSchedule = () => {
+    if(logined) setStoredSchedules(true)
+    else alert('로그인해주세요!')
+  }
+
   return (
     <>
-      {popup && <PopupLayout render={<SelectingDates onClick={() => setPopup(false)}/>}/>}
+      {storedSchedules && <PopupLayout render={<SelectingDates onClick={() => setStoredSchedules(false)}/>}/>}
       <S.Main theme={mainimg}>
          <S.Background theme={mainimg}/>
          <S.Guide type='button'>
@@ -37,15 +47,14 @@ export default function Main({active}: Active) {
               <S.Des>예약하세요</S.Des>
             </S.DesDiv>
           </S.H2>
-          <S.AddButton type="button" onClick={() => active? nav('/scheduleResister') : alert('로그인해주세요!')}>
+          <S.AddButton type="button" onClick={clickReigstSchedule}>
             <S.PlusText>+</S.PlusText>
             여행 일정 등록
           </S.AddButton>
-          <S.SelectButton type="button" onClick={() => setPopup(true)}><S.Ico src={carrier} alt="아이콘"/>나의 일정 선택</S.SelectButton>
+          <S.SelectButton type="button" onClick={clickSelectingSchedule}><S.Ico src={carrier} alt="아이콘"/>나의 일정 선택</S.SelectButton>
          </S.MainDiv>
          {travelId !== null ? <NoticeDday/> : null}
       </S.Main>
-      <MainTab/>
     </>
   )
 }

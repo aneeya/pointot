@@ -1,17 +1,15 @@
-import { useQuery } from "@tanstack/react-query";
 import { useState, MouseEvent, ReactNode } from "react";
 import styled from "styled-components";
-import { useGetPinedList } from "../../API/TravelMange_axios";
 import PinedListTab from "../component/PinedListTab";
 import ReservableTab from "../component/ReservableTab";
 import ReservedRoomTab from "../component/ReservedRoomTab";
 import TravelDiaryTab from "../component/TravelDiaryTab";
+import {  getTravelId } from "../storedData/localStorage";
 
 export default function MainTab() {
-  const travelId = window.localStorage.getItem('travelId')
-  console.log('MainTab')
+  const travelId = getTravelId()
 
-  const [ tab, setTab ] = useState<ReactNode>(<ReservedRoomTab />)
+  const [ tab, setTab ] = useState<ReactNode>(travelId === null ? "" : <ReservedRoomTab />)
   
   const clickTab = (e: MouseEvent<HTMLLIElement>) => {
     const targat = e.target as HTMLLIElement

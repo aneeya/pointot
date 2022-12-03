@@ -1,13 +1,13 @@
 import styled from "styled-components"
 import dday from "../../assets/icons/dday3.png"
 import getdDay from "../../functions/getdDay"
+import { getSelected } from "../storedData/localStorage"
 
 export default function NoticeDday() {
-  const getSelected = window.localStorage.getItem('selectedSchedule')
-  const selected = JSON.parse(getSelected!) 
+  const { startDate, endDate} = getSelected()
   
-  const dDay = getdDay(selected.startDate)
-  const ended = getdDay(selected.endDate)
+  const dDay = getdDay(startDate)
+  const ended = getdDay(endDate)
                 
   window.localStorage.setItem('ended', String(ended))
 

@@ -1,6 +1,6 @@
-import { ChangeEvent, useCallback, useState } from "react"
+import { useState } from "react"
 import styled from "styled-components"
-import { useDeletePined, useEditMemo } from "../../API/TravelMange_axios"
+import { useDeletePined } from "../../API/TravelMange_axios"
 import { Room } from "../../types"
 
 import haus from "../../assets/haus.png"
@@ -9,6 +9,7 @@ import ConfirmLayout from "../layout/ConfirmLayout"
 import { useNavigate } from "react-router-dom"
 import React from "react"
 import PinedListMemoView from "./PinedListMemoView"
+import { getEnded } from "../storedData/localStorage"
 
 interface Props {
   list: Room,
@@ -16,7 +17,7 @@ interface Props {
 
 export default React.memo(function PinedListBox({list}: Props) {
   const [ confirm, setConfirm ] = useState(false)
-  const ended = window.localStorage.getItem('ended')
+  const ended = getEnded()
   console.log(list.name)
   
   const nav = useNavigate()
@@ -24,9 +25,6 @@ export default React.memo(function PinedListBox({list}: Props) {
   const deleteMutation = useDeletePined(Number(list.id))
   if(Number(ended) < 0) deleteMutation.mutate()
 
-  
-  const clickConfirm = useCallback((() => setConfirm(true)),[list])
-  const cancelConfirm = useCallback((() => setConfirm(false)),[list])
   const clickUpdates = () => {
     deleteMutation.mutate()
   }
@@ -34,11 +32,11 @@ export default React.memo(function PinedListBox({list}: Props) {
 
   return (
     <>
-      {confirm && <ConfirmLayout message="정말로 삭제하시겠습니까??" confirm={clickUpdates} cancel={cancelConfirm}/>}
+      {confirm && <ConfirmLayout message="정말로 삭제하시겠습니까??" confirm={clickUpdates} cancel={() => setConfirm(false)}/>}
       <R.Rayout>
         <R.Img></R.Img>
         <R.Content>
-          <R.Pin role="button" aria-label="저장핀"  onClick={clickConfirm}/>
+          <R.Pin role="button" aria-label="저장핀"  onClick={() => setConfirm(true)}/>
           <R.H3>{list.name}</R.H3>
           <R.Des>{list.description}</R.Des>
           <R.Button type="button" onClick={() => nav(String(list.id))}>상세보기</R.Button>

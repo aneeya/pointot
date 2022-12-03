@@ -46,54 +46,35 @@
   "travels": [
     {
       "email": "aneeya@naver.com",
-      "title": "가을",
-      "cost": "40076",
-      "country": "Croatia",
-      "startDate": "2022-10-24",
-      "endDate": "2022-10-31",
-      "nthOfPeople": "2",
-      "id": 9,
-      "userId": 3
-    },
-    {
-      "email": "aneeya@naver.com",
-      "title": "사진여행",
-      "cost": "53435",
-      "country": "Turkey",
-      "startDate": "2022-11-16",
-      "endDate": "2022-11-30",
-      "nthOfPeople": "2",
-      "postId": "3",
-      "id": 11
-    },
-    {
-      "email": "aneeya@naver.com",
-      "title": "가을여행",
-      "city": "",
-      "startDate": "2022-12-01",
-      "endDate": "2022-12-05",
-      "postId": "3",
-      "country": "강릉시",
-      "id": 12
-    },
-    {
-      "email": "aneeya@naver.com",
       "title": "겨울제주여행",
       "city": "제주시",
       "startDate": "2022-12-27",
       "endDate": "2022-12-31",
-      "postId": "3",
-      "country": "광주시",
       "id": 13
     },
     {
       "email": "aneeya@naver.com",
       "title": "겨울근교여행",
       "city": "수원시",
-      "startDate": "2022-12-30",
-      "endDate": "2022-12-31",
-      "postId": "3",
+      "startDate": "2022-12-29",
+      "endDate": "2022-12-30",
       "id": 14
+    },
+    {
+      "email": null,
+      "title": "서울여행",
+      "city": "서울특별시",
+      "startDate": "2022-12-03",
+      "endDate": "2022-12-04",
+      "id": 15
+    },
+    {
+      "email": "aneeya@naver.com",
+      "title": "서울여행",
+      "city": "서울특별시",
+      "startDate": "2022-12-03",
+      "endDate": "2022-12-04",
+      "id": 16
     }
   ],
   "pineds": [
@@ -122,9 +103,56 @@
       "hompage": "https://disqus.com/dui/maecenas/tristique/est/et.aspx?nulla=in&justo=porttitor&aliquam=pede&quis=justo&turpis=eu&eget=massa&elit=donec&sodales=dapibus&scelerisque=duis&mauris=at&sit=velit&amet=eu&eros=est&suspendisse=congue&accumsan=elementum&tortor=in&quis=hac&turpis=habitasse&sed=platea&ante=dictumst&vivamus=morbi&tortor=vestibulum&duis=velit&mattis=id&egestas=pretium&metus=iaculis&aenean=diam&fermentum=erat&donec=fermentum&ut=justo&mauris=nec&eget=condimentum&massa=neque&tempor=sapien&convallis=placerat&nulla=ante&neque=nulla&libero=justo&convallis=aliquam&eget=quis&eleifend=turpis&luctus=eget&ultricies=elit&eu=sodales&nibh=scelerisque&quisque=mauris&id=sit&justo=amet&sit=eros&amet=suspendisse&sapien=accumsan&dignissim=tortor&vestibulum=quis&vestibulum=turpis&ante=sed&ipsum=ante&primis=vivamus&in=tortor",
       "description": "id pretium iaculis diam erat fermentum justo nec condimentum neque sapien placerat ante nulla justo aliquam quis turpis eget elit sodales scelerisque mauris sit amet eros suspendisse accumsan tortor quis turpis sed ante vivamus tortor duis mattis egestas metus aenean fermentum donec ut mauris eget massa tempor convallis nulla neque libero convallis eget eleifend luctus ultricies eu nibh quisque id justo sit amet sapien dignissim vestibulum vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae nulla dapibus dolor vel est donec odio justo sollicitudin ut suscipit a feugiat et eros vestibulum ac est lacinia nisi venenatis tristique fusce congue diam id ornare imperdiet sapien urna pretium nisl ut volutpat sapien arcu sed augue aliquam erat volutpat in congue etiam justo etiam pretium iaculis justo in hac habitasse platea dictumst etiam faucibus cursus urna ut tellus nulla ut erat id mauris vulputate elementum nullam varius nulla facilisi cras non velit nec nisi vulputate nonummy maecenas tincidunt lacus at velit vivamus vel nulla eget eros elementum pellentesque quisque porta volutpat erat quisque erat eros viverra eget congue eget semper rutrum nulla nunc purus phasellus in felis donec semper sapien a libero nam dui proin leo odio porttitor id consequat in consequat ut nulla sed accumsan felis ut at dolor quis odio consequat varius integer ac leo pellentesque ultrices mattis odio donec vitae nisi nam ultrices libero non mattis pulvinar nulla pede ullamcorper augue a suscipit nulla elit ac nulla sed vel enim sit amet nunc viverra dapibus nulla suscipit ligula in lacus curabitur at ipsum",
       "travelId": 13
+    },
+    {
+      "id": 43,
+      "name": "Kemmer-Bergnaum",
+      "city": "제주시",
+      "hostName": "Vaughan Pallesen",
+      "phone": "694-835-7556",
+      "price": "11792",
+      "images": "http://dummyimage.com/299x101.png/ff4444/ffffff",
+      "nthOfPeople": 5,
+      "hompage": "https://paginegialle.it/elementum/in/hac/habitasse/platea/dictumst/morbi.js?erat=ipsum&fermentum=integer&justo=a&nec=nibh&condimentum=in&neque=quis&sapien=justo&placerat=maecenas&ante=rhoncus&nulla=aliquam&justo=lacus&aliquam=morbi&quis=quis&turpis=tortor&eget=id&elit=nulla&sodales=ultrices&scelerisque=aliquet&mauris=maecenas&sit=leo&amet=odio&eros=condimentum&suspendisse=id&accumsan=luctus&tortor=nec&quis=molestie&turpis=sed&sed=justo&ante=pellentesque&vivamus=viverra&tortor=pede&duis=ac&mattis=diam&egestas=cras&metus=pellentesque&aenean=volutpat&fermentum=dui&donec=maecenas&ut=tristique&mauris=est&eget=et&massa=tempus&tempor=semper&convallis=est&nulla=quam&neque=pharetra&libero=magna&convallis=ac&eget=consequat&eleifend=metus&luctus=sapien&ultricies=ut&eu=nunc&nibh=vestibulum&quisque=ante&id=ipsum&justo=primis&sit=in&amet=faucibus&sapien=orci&dignissim=luctus&vestibulum=et&vestibulum=ultrices&ante=posuere&ipsum=cubilia",
+      "description": "ut dolor morbi vel lectus in quam fringilla rhoncus mauris enim leo rhoncus sed vestibulum sit amet cursus id turpis integer aliquet massa id lobortis convallis tortor risus dapibus augue vel accumsan tellus nisi eu orci mauris lacinia sapien quis libero nullam sit amet turpis elementum ligula vehicula consequat morbi a ipsum integer a nibh in quis justo maecenas rhoncus aliquam lacus morbi quis tortor id nulla ultrices aliquet maecenas leo odio condimentum id luctus nec molestie sed justo pellentesque viverra pede ac diam cras pellentesque volutpat dui maecenas tristique est et tempus semper est quam pharetra magna ac consequat metus sapien ut nunc vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae mauris viverra diam vitae quam suspendisse potenti nullam porttitor lacus at turpis donec posuere metus vitae ipsum aliquam non mauris morbi non lectus aliquam sit amet diam in magna bibendum imperdiet nullam orci pede venenatis non sodales sed tincidunt eu felis fusce posuere felis sed lacus morbi sem mauris laoreet ut rhoncus aliquet pulvinar sed nisl nunc rhoncus dui vel sem sed",
+      "travelId": 13,
+      "memo": "숙소가 예뻐요"
     }
   ],
-  "reserves": [],
+  "reserves": [
+    {
+      "id": 39,
+      "name": "Homenick-Dicki",
+      "city": "제주시",
+      "hostName": "Elva Branchett",
+      "phone": "360-629-2192",
+      "price": "53043",
+      "images": "http://dummyimage.com/263x186.png/5fa2dd/ffffff",
+      "nthOfPeople": 4,
+      "hompage": "http://flickr.com/ultrices.xml?tortor=volutpat&sollicitudin=erat&mi=quisque&sit=erat&amet=eros&lobortis=viverra&sapien=eget&sapien=congue",
+      "description": "nulla integer pede justo lacinia eget tincidunt eget tempus vel pede morbi porttitor lorem id ligula suspendisse ornare consequat lectus in est risus auctor sed tristique in tempus sit amet sem fusce consequat nulla nisl nunc nisl duis bibendum felis sed interdum venenatis turpis enim blandit mi in porttitor pede justo eu massa donec dapibus duis at velit eu est congue elementum in hac habitasse platea dictumst morbi vestibulum velit id pretium iaculis diam erat fermentum justo nec condimentum neque sapien placerat ante nulla justo aliquam quis turpis eget elit sodales scelerisque mauris sit amet eros suspendisse accumsan tortor quis turpis sed ante vivamus tortor duis mattis egestas metus aenean fermentum donec ut mauris eget massa tempor convallis nulla neque libero convallis eget eleifend luctus ultricies eu nibh quisque id justo sit amet sapien dignissim vestibulum vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae nulla dapibus dolor vel est donec odio justo sollicitudin ut suscipit a feugiat et eros vestibulum ac est lacinia nisi venenatis tristique fusce congue diam id ornare imperdiet sapien urna pretium nisl ut volutpat sapien arcu sed augue aliquam erat volutpat in congue etiam justo etiam pretium iaculis justo in hac habitasse platea dictumst etiam faucibus cursus urna ut tellus nulla ut erat id mauris vulputate elementum nullam varius nulla facilisi cras non velit nec nisi vulputate nonummy maecenas tincidunt lacus at velit vivamus vel nulla",
+      "checkIn": "2022-12-27",
+      "checkOut": "2022-12-29",
+      "total": "106,086원",
+      "travelId": 13
+    },
+    {
+      "id": 1,
+      "name": "Fisher-Marvin",
+      "city": "서울특별시",
+      "hostName": "Wilbur Bardell",
+      "phone": "907-549-2448",
+      "price": "51656",
+      "images": "http://dummyimage.com/266x196.png/5fa2dd/ffffff",
+      "nthOfPeople": 9,
+      "hompage": "https://de.vu/nulla/justo/aliquam/quis/turpis/eget.aspx?sit=mauris&amet=eget&lobortis=massa&sapien=tempor&sapien=convallis&non=nulla&mi=neque&integer=libero&ac=convallis&neque=eget",
+      "description": "amet eros suspendisse accumsan tortor quis turpis sed ante vivamus tortor duis mattis egestas metus aenean fermentum donec ut mauris eget massa tempor convallis nulla neque libero convallis eget eleifend luctus ultricies eu nibh quisque id justo sit amet sapien dignissim vestibulum vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae nulla dapibus dolor vel est donec odio justo sollicitudin ut suscipit a feugiat et eros vestibulum ac est lacinia nisi venenatis tristique fusce congue diam id ornare imperdiet sapien urna pretium nisl ut volutpat sapien arcu sed augue aliquam erat volutpat in congue etiam justo etiam pretium iaculis justo in hac habitasse platea dictumst etiam faucibus cursus urna ut tellus nulla ut erat id mauris vulputate elementum nullam varius nulla facilisi cras non velit nec nisi vulputate nonummy maecenas tincidunt lacus at velit vivamus vel nulla eget eros elementum pellentesque quisque porta volutpat erat quisque erat eros viverra eget congue eget semper rutrum nulla nunc purus phasellus in felis donec semper sapien a libero nam dui proin leo odio porttitor id consequat in consequat ut nulla sed accumsan felis ut at dolor quis odio consequat varius integer ac leo pellentesque ultrices mattis odio donec vitae nisi nam ultrices libero non mattis pulvinar nulla pede ullamcorper augue a suscipit nulla elit ac nulla sed",
+      "checkIn": "2022-12-3",
+      "checkOut": "2022-12-4",
+      "total": "51,656원",
+      "travelId": 16
+    }
+  ],
   "pasts": [],
   "countries": [
     {
@@ -475,7 +503,7 @@
       "city": "서울특별시",
       "hostName": "Wilbur Bardell",
       "phone": "907-549-2448",
-      "price": "516.56",
+      "price": "51656",
       "images": "http://dummyimage.com/266x196.png/5fa2dd/ffffff",
       "nthOfPeople": 9,
       "hompage": "https://de.vu/nulla/justo/aliquam/quis/turpis/eget.aspx?sit=mauris&amet=eget&lobortis=massa&sapien=tempor&sapien=convallis&non=nulla&mi=neque&integer=libero&ac=convallis&neque=eget",
@@ -487,7 +515,7 @@
       "city": "서울특별시",
       "hostName": "Ethelda Maldin",
       "phone": "645-515-8269",
-      "price": "111.46",
+      "price": "51146",
       "images": "http://dummyimage.com/140x92.png/5fa2dd/ffffff",
       "nthOfPeople": 7,
       "hompage": "https://woothemes.com/tristique/tortor.json?sapien=lacus&in=morbi&sapien=sem&iaculis=mauris&congue=laoreet&vivamus=ut&metus=rhoncus&arcu=aliquet&adipiscing=pulvinar&molestie=sed&hendrerit=nisl&at=nunc&vulputate=rhoncus&vitae=dui&nisl=vel&aenean=sem&lectus=sed&pellentesque=sagittis&eget=nam&nunc=congue&donec=risus&quis=semper&orci=porta&eget=volutpat&orci=quam&vehicula=pede&condimentum=lobortis&curabitur=ligula&in=sit&libero=amet&ut=eleifend&massa=pede&volutpat=libero&convallis=quis&morbi=orci&odio=nullam&odio=molestie&elementum=nibh&eu=in&interdum=lectus&eu=pellentesque&tincidunt=at&in=nulla&leo=suspendisse&maecenas=potenti&pulvinar=cras&lobortis=in&est=purus&phasellus=eu&sit=magna&amet=vulputate&erat=luctus&nulla=cum&tempus=sociis&vivamus=natoque&in=penatibus&felis=et&eu=magnis&sapien=dis&cursus=parturient&vestibulum=montes&proin=nascetur&eu=ridiculus&mi=mus&nulla=vivamus&ac=vestibulum&enim=sagittis&in=sapien&tempor=cum&turpis=sociis&nec=natoque&euismod=penatibus&scelerisque=et",
@@ -499,7 +527,7 @@
       "city": "서울특별시",
       "hostName": "Jeremiah Peteri",
       "phone": "388-423-0371",
-      "price": "488.45",
+      "price": "48845",
       "images": "http://dummyimage.com/293x174.png/dddddd/000000",
       "nthOfPeople": 7,
       "hompage": "http://opera.com/semper/rutrum/nulla/nunc/purus/phasellus.js?eros=sed&viverra=ante&eget=vivamus&congue=tortor&eget=duis&semper=mattis&rutrum=egestas&nulla=metus&nunc=aenean&purus=fermentum&phasellus=donec&in=ut&felis=mauris&donec=eget&semper=massa&sapien=tempor&a=convallis&libero=nulla&nam=neque&dui=libero&proin=convallis&leo=eget&odio=eleifend&porttitor=luctus&id=ultricies&consequat=eu&in=nibh&consequat=quisque&ut=id&nulla=justo&sed=sit&accumsan=amet&felis=sapien&ut=dignissim&at=vestibulum&dolor=vestibulum&quis=ante&odio=ipsum&consequat=primis&varius=in&integer=faucibus&ac=orci&leo=luctus&pellentesque=et&ultrices=ultrices&mattis=posuere&odio=cubilia&donec=curae&vitae=nulla&nisi=dapibus&nam=dolor&ultrices=vel&libero=est&non=donec",

@@ -2,7 +2,7 @@ import { useState } from "react"
 import styled from "styled-components"
 import { useEditMemo } from "../../API/TravelMange_axios"
 import { Room } from "../../types"
-import useGetData from "../queryData/queryHooks"
+import useGetData from "../storedData/queryHooks"
 
 
 interface Props {

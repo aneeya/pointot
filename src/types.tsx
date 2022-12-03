@@ -1,12 +1,10 @@
 export interface Schedule {
-  initValue?: string,
   title: string,
   city: string,
   startDate: string,
   endDate: string,
   email: string,
-  id?: number,
-  postId?: number
+  id?: number
 }
 
 export interface EditSchedule {

@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import axios from "axios"
 import { useNavigate } from "react-router-dom"
+import { getSelected, getTravelId } from "../components/storedData/localStorage"
 import { EditSchedule, Schedule } from "../types"
 
 
@@ -28,7 +29,7 @@ export const useAddSchedule = (data: Schedule) => {
 //스케줄 편집하기
 
 const editTitle = async(data: string) => {
-  const travelId = window.localStorage.getItem('travelId')
+  const travelId = getTravelId()
   return await axios.patch(`http://localhost:4000/travels/${travelId}`, {title: data})
 }
 
@@ -46,19 +47,19 @@ export const useEditTitle = (data: string, edits: EditSchedule, callback: () => 
 }
 
 const editSchedule = async(data: EditSchedule) => {
-  const travelId = window.localStorage.getItem('travelId')
+  const travelId = getTravelId()
   return await axios.patch(`http://localhost:4000/travels/${travelId}`, data)
 }
 
-export const useEditSchedule = (data: EditSchedule, edits: EditSchedule) => {
+export const useEditSchedule = (data: EditSchedule) => {
   const  { city, startDate, endDate } = data
   const query = useQueryClient()
   const nav = useNavigate()
 
   return useMutation(() => editSchedule(data), {
     onSuccess: () => {
-      query.invalidateQueries(['@schedule'])
-      const editContet = { ...edits, city, startDate, endDate}
+      query.invalidateQueries(['@schedules'])
+      const editContet = { ...getSelected(), city, startDate, endDate}
       window.localStorage.setItem('selectedSchedule', JSON.stringify(editContet))
       nav('/')
     },
@@ -71,7 +72,7 @@ export const useEditSchedule = (data: EditSchedule, edits: EditSchedule) => {
 //스케줄 삭제하기
 
 const deleteschedule = async() => {
-  const travelId = window.localStorage.getItem('travelId')
+  const travelId = getTravelId()
   return await axios.delete(`http://localhost:4000/travels/${travelId}`)
 }
 
@@ -81,11 +82,12 @@ export const useDeleteSchedule = () => {
     onError: (e: any) => {
       alert(`${e.message}다시 시도해주세요`)
     },
-    onSuccess: async() => {
+    onSuccess: () => {
       alert('일정이 삭제되었습니다!')
-      window.localStorage.removeItem('starDate')
-      window.localStorage.removeItem('endDate')
+      query.invalidateQueries(['@schedules'])
       window.localStorage.removeItem('travelId')
+      window.localStorage.removeItem('selectedSchedule')
+      window.localStorage.removeItem('ended')
       window.location.reload()
     }
   })

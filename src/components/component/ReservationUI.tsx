@@ -4,9 +4,9 @@ import styled from "styled-components"
 import { useReserve } from "../../API/TravelMange_axios"
 import { Reserve } from "../../types"
 import Button from "../common/Button"
+import { getSelected, getTravelId } from "../storedData/localStorage"
 
 interface Props {
-  data: any
   room: Reserve
 }
 
@@ -17,11 +17,12 @@ interface Action {
 
 
 
-export default function ReservationUI({data, room}: Props) {
-  const travelId = window.localStorage.getItem('travelId')
+export default function ReservationUI({room}: Props) {
+  const travelId = getTravelId()
+  const { startDate, endDate } = getSelected()
   const nav = useNavigate()
   
-  const period = getPeriod(data.startDate, data.endDate)
+  const period = getPeriod(startDate, endDate)
   const initReserve = {
     ...room,
     checkIn: '',

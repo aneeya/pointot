@@ -10,28 +10,20 @@ import ScheduleRegisterFom from "../form/ScheduleRegisterFom"
 import ScheduleModifyForm from "../form/ScheduleModifyForm"
 
 const Router = () => {
-	const queryClient = useQueryClient()
-	const [ active, setActive ] =  useState(false)
+	const key = window.localStorage.getItem('user')
+	const [ logined, setLogined ] =  useState(key !== null)
 	
-	useEffect(() => {
-		const key = window.localStorage.getItem('key')
-		if(key !== null) {
-			setActive(true)
-		}
-		else {
-			setActive(false)
-		}
-	}, [])
+	
 
 	return (
 		<BrowserRouter>
 			<Routes>
-				<Route path="/" element={<Header active={active}/>}>
-					<Route path="/" element={<MainPage active={active}/>}/>
+				<Route path="/" element={<Header logined={logined} isLogined={() => setLogined(false)}/>}>
+					<Route path="/" element={<MainPage logined={logined}/>}/>
 					<Route path="join" element={<FormLayout title='회원가입' render={<JoinForm />} />} />
 					<Route path="scheduleResister" element={<FormLayout title='여행 일정 등록' render={<ScheduleRegisterFom/>} />} />
 					<Route path="scheduleModify" element={<FormLayout title='여행 일정 수정' render={<ScheduleModifyForm/>}/>}/>
-					<Route path=":room" element={<RoomPage/>} />
+					<Route path=":room" element={<RoomPage logined={logined}/>} />
 				</Route>
 			</Routes>
 		</BrowserRouter>

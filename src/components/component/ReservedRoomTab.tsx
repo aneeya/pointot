@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import styled from "styled-components"
 import { useReserveList } from "../../API/TravelMange_axios"
 import { Reserve } from "../../types"
+import { getEnded } from "../storedData/localStorage"
 import NoitceSelectedSchedule from "./NoitceSelectedSchedule"
 import ReservedRoomBox from "./ReservedRoomBox"
 
@@ -10,18 +11,17 @@ import ReservedRoomBox from "./ReservedRoomBox"
 export default function ReservedRoomTab() {
   const [ reserves, setReserves ] = useState<Reserve[] | []>([])
 
-  const ended = window.localStorage.getItem('ended')
-
   const { data, status } = useReserveList()
+  const ended = getEnded() 
   
   useEffect(() => {
-    if(status === 'success' && Number(ended) >= 0) 
-    setReserves(data.data.reserves)
+    if(status === 'success' && ended >= 0) 
+    setReserves(data.reserves)
   })
 
   return (
     <>
-      <NoitceSelectedSchedule ended={Number(ended)} isReserved={reserves.length}/>
+      <NoitceSelectedSchedule ended={ended} isReserved={reserves.length}/>
       {
         reserves.length !== 0
         ?
@@ -42,7 +42,7 @@ export default function ReservedRoomTab() {
           </S.Reserves>
       </S.Rayout>
       :
-      <S.Messge> { Number(ended) < 0 ? '여행 일정이 끝났습니다' : '아직 예약한 리스트가 없습니다!'}</S.Messge>
+      <S.Messge> { ended < 0 ? '여행 일정이 끝났습니다' : '아직 예약한 리스트가 없습니다!'}</S.Messge>
       }
     </>
   )

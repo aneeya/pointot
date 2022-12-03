@@ -1,18 +1,20 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import axios from "axios"
 import { useNavigate } from "react-router-dom"
-import { Diary, Reserve, Room } from "../types"
+import { getSelected, getTravelId, getUser } from "../components/storedData/localStorage"
+import { Diary, Reserve, Room, Schedule } from "../types"
 
 
-//등록한 여행일정 리스트 
+//등록한 여행일정 리스트 불러오기 
 const getStoredDates = async() => {
-  const email = window.localStorage.getItem('email')
-  return  await axios.get(` http://localhost:4000/travels?email=${email}`)
+  const { email } = getUser()
+  const res = await axios.get(` http://localhost:4000/travels?email=${email}`)
+  return res.data
 }
 
 export const useStoredDates = () => {
   const query = useQueryClient()
-  return useQuery(['@schedule'], getStoredDates, {
+  return useQuery(['@schedules'], getStoredDates, {
     onError: (e: any) => {
 			alert(`${e.message}저장된 날짜들을 로드하지 못했습니다 ㅠㅠ`)
 		}
@@ -24,8 +26,7 @@ export const useStoredDates = () => {
 //예약가능한 방 불러오기
 
 export const getReservable = async() => {
-  const getScheduled = window.localStorage.getItem('selectedSchedule')
-  const city = JSON.parse(getScheduled!).city
+  const { city } = getSelected()
   return await axios.get(`http://localhost:4000/rooms?city=${city}`)
 }
 
@@ -38,8 +39,9 @@ export const useReservableList = () => {
 }
 
 //핀리스트 추가
- const postPinedRoom = async(id: number, data: Room) => {
-  data.travelId = id
+ const postPinedRoom = async(data: Room) => {
+  const travelId = getTravelId()
+  data.travelId = Number(travelId)
   return await axios.post(`http://localhost:4000/pineds`, data)
 } 
 
@@ -63,8 +65,9 @@ export const useEditMemo = (id: number, memo: string) => {
 
 //저장한 핀리스트 불러오기
 export const getPinedList = async() => {
-  const id = window.localStorage.getItem('travelId')
-  return await axios.get(`http://localhost:4000/pineds?travelId?=${id}`)
+  const travelId = getTravelId()
+  const res = await axios.get(`http://localhost:4000/pineds?travelId=${travelId}`)
+  return res.data
 }
 
 export const useGetPinedList = () => {
@@ -72,9 +75,10 @@ export const useGetPinedList = () => {
 }
 
 //핀리스트 추가하기
-export const useAddPined = (id: number, data: Room) => {
+export const useAddPined = (data: Room) => {
   const query = useQueryClient()
-  return useMutation(() => postPinedRoom(id, data), {
+
+  return useMutation(() => postPinedRoom(data), {
     onError: (e: any) => {
       alert(`${e.message}핀을 저장하지 못했습니다`)
     },
@@ -91,6 +95,7 @@ const deletePined = async(id: number) => {
 
 export const useDeletePined = (id: number) => {
   const query = useQueryClient()
+
   return useMutation(() => deletePined(id), {
     onSuccess: () => {
       query.invalidateQueries(['@pined'])
@@ -104,7 +109,8 @@ export const useDeletePined = (id: number) => {
 
 //방 상세보기 
 const getDetailView = async(id: number) => {
-  return await axios.get(`http://localhost:4000/rooms/${id}`)
+  const res = await axios.get(`http://localhost:4000/rooms/${id}`)
+  return res.data
 } 
 
 export const useDetailView = (id: number) => {
@@ -141,8 +147,10 @@ export const useReserve = (data: Reserve, travelId: string) => {
 //예약목록
 
 const getReserve = async() => {
-  const travelId = window.localStorage.getItem('travelId')
-  return await axios.get(`http://localhost:4000/travels/${travelId}?_embed=reserves`)
+  const travelId = getTravelId()
+  const res = await axios.get(`http://localhost:4000/travels/${travelId}?_embed=reserves`)
+
+  return res.data
 }
 
 export const useReserveList = () => {

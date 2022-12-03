@@ -4,6 +4,7 @@ import { useReserveList } from "../../API/TravelMange_axios"
 import { useDeleteSchedule } from "../../API/TravelSchedule_axios"
 import { Reserve } from "../../types"
 import Button from "../common/Button"
+import { getEnded } from "../storedData/localStorage"
 import TravelDiaryBox from "./TravelDiaryBox"
 
 
@@ -11,14 +12,14 @@ import TravelDiaryBox from "./TravelDiaryBox"
 export default function TravelDiaryTab() {
   const [ reserves, setReserves ] = useState<Reserve[] | []>([])
 
-  const ended = window.localStorage.getItem('ended')
+  const ended = getEnded()
   
   const { data, status } = useReserveList()
   const deletMutation = useDeleteSchedule()
   
   useEffect(() => {
-    if(status === 'success' && Number(ended) < 0) 
-    setReserves(data.data.reserves)
+    if(status === 'success' && ended < 0) 
+    setReserves(data.reserves)
   })
 
   return (
@@ -48,7 +49,7 @@ export default function TravelDiaryTab() {
         :
         <div>
           {
-            Number(ended) < 0 
+            ended < 0 
             ?
             <S.ButtonArea>
              <Button type="button" text="일정 삭제" onClick={() => deletMutation.mutate()}/>

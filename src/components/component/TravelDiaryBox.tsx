@@ -7,6 +7,7 @@ import TravelDiaryForm from "../../form/TravelDiaryForm"
 import TravelDiaryList from "./TravelDiaryList"
 import { useNavigate } from "react-router-dom"
 import { Diary, Reserve } from "../../types"
+import { getEnded } from "../storedData/localStorage"
 
 interface Props {
   list: Reserve
@@ -16,7 +17,7 @@ export default function TravelDiaryBox({list}: Props) {
   const [ diary, setDiary ] = useState(false)
   const [ recommended, setRecommended ] = useState<Diary[] | []>([])
 
-  const ended = window.localStorage.getItem('ended')
+  const ended = getEnded()
 
   const cancelMutation = useReserveDelete(list.id!)
   const { data, status } = useDiaryList(list.id!) 
@@ -28,7 +29,7 @@ export default function TravelDiaryBox({list}: Props) {
     if(target.innerText !== '기록하기') nav(`/${String(list.id)}`)
   }
  
-  if(Number(ended) < -30 && recommended.length === 0) {
+  if(ended < -30 && recommended.length === 0) {
     cancelMutation.mutate()
   }
 

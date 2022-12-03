@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+
 import { useGetPinedList, useReservableList } from "../../API/TravelMange_axios";
 import { Room } from "../../types";
-import  ReservationBox  from "./ReservationBox";
+import { getEnded } from "../storedData/localStorage";
+
+import ReservableBox from "./ReservableBox";
 
 
 export default function ReservableTab() {
@@ -10,29 +13,26 @@ export default function ReservableTab() {
 
   const { data, status } = useReservableList()
   const pinedList = useGetPinedList()
-
-  const id = window.localStorage.getItem('travelId')
-  const ended = window.localStorage.getItem('ended')
+  const ended = getEnded()
 
   useEffect(() => {
     if(status === 'success' 
         && pinedList.status ==='success'
-        && Number(ended) >= 0) setReservable(data?.data)
+        && ended >= 0) setReservable(data?.data)
   })
   
-
   return (
     <>
     {reservable.length !== 0
      ?
       reservable.map((list: Room) => {
-        const pineds = pinedList.data?.data
-        const pinedIds = pineds.map( (list: { id: number }) => list.id)
+        const pineds = pinedList.data
+        const pinedIds = pineds.map( (list: Room) => list.id)
         const isPined = pinedIds.includes(list.id) 
         return (
           <>
           <S.Div key={list.name}>
-            <ReservationBox list={list} id={Number(id)} isPined={isPined}/>
+            <ReservableBox list={list} isPined={isPined}/>
           </S.Div>
           </>
         )

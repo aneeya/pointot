@@ -4,6 +4,7 @@ import styled from "styled-components"
 import { useDeleteSchedule, useEditTitle } from "../../API/TravelSchedule_axios"
 import ico from "../../assets/icons/edit.png"
 import ConfirmLayout from "../layout/ConfirmLayout"
+import { getSelected } from "../storedData/localStorage"
 
 interface Props {
   ended: number,
@@ -16,7 +17,6 @@ export default function NoitceSelectedSchedule({ended, isReserved}: Props) {
 
   const nav = useNavigate()
 
-  const deletMutation = useDeleteSchedule()
 
   const clickEditSchedule = (e: React.MouseEvent<HTMLButtonElement>) => {
     const target = e.target as HTMLButtonElement
@@ -28,10 +28,11 @@ export default function NoitceSelectedSchedule({ended, isReserved}: Props) {
     else if(target.innerText === '일정 삭제') setConfirm(true)
   }
 
-  const getSelected = window.localStorage.getItem('selectedSchedule')
-  const selected = JSON.parse(getSelected!)
-  const { title, city, startDate, endDate } = selected
+  const { title, city, startDate, endDate } = getSelected()
+  const selected = { title, city, startDate, endDate } 
+
   
+  const deleteMutaition = useDeleteSchedule()
   const editMutation = useEditTitle(editTitle, selected, () => setEditMode(false))
 
   const changeValue = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -44,7 +45,7 @@ export default function NoitceSelectedSchedule({ended, isReserved}: Props) {
 
   return (
     <>
-      {confirm && <ConfirmLayout message="삭제하시겠습니까??🤔" confirm={() => editMutation.mutate()} cancel={() => setConfirm(false)} />}
+      {confirm && <ConfirmLayout message="삭제하시겠습니까??🤔" confirm={() => deleteMutaition.mutate()} cancel={() => setConfirm(false)} />}
       <S.Layout>
         <S.BlueRound></S.BlueRound>
         <S.YellowRound></S.YellowRound>

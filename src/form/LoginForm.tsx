@@ -1,34 +1,29 @@
 import { ChangeEvent, useState } from "react";
 import styled from "styled-components";
 import Button from "../components/common/Button";
-import { Login, useLogin } from "../API/LoginAndJoin_axios";
+import { getUsers } from "../API/LoginAndJoin_axios";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
   onClick: () => void
 }
 
 export default function LoginForm({onClick}: Props) {
-  const [ login, setLogin ] = useState({email: "", password: ""})
-  const{ data } = useLogin() 
-  
+  const [ user, setUser ] = useState({email: "", password: ""})
+  const nav = useNavigate()
+
   const changeValue = (e: ChangeEvent<HTMLInputElement>) => {
-    setLogin({ ...login, [e.target.name]: e.target.value })
+    setUser({ ...user, [e.target.name]: e.target.value })
   }
 
   const submitValue = async(e: ChangeEvent<HTMLFormElement>) => {
     e.preventDefault()
-    const result = data?.data.filter((user: Login) => {
-        return user.email === login.email && user.password === login.password})
-      
-    if(result !== null) {
-      window.localStorage.setItem('key', result[0].id)
-      window.localStorage.setItem('email', result[0].email)
-      window.localStorage.setItem('name', result[0].name)
-      window.location.replace('http://localhost:3000/')
-      
-    }
-    else alert('이메일 및 패스워드가 확인되지 않습니다 다시 입력해주세요!')
+    const userInfo = await getUsers(user)
     
+    if(userInfo !== undefined) {
+      window.localStorage.setItem('user', JSON.stringify(userInfo))
+      window.location.reload()
+    }
   }
 
   

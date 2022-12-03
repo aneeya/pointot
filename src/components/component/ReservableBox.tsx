@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React from "react"
 import { useNavigate } from "react-router-dom"
 import styled from "styled-components"
 import haus from "../../assets/haus.png"
@@ -6,20 +6,17 @@ import pin from "../../assets/icons/pin.png"
 import pined from "../../assets/icons/pin2.png"
 import { useAddPined, useDeletePined } from "../../API/TravelMange_axios"
 import { Room } from "../../types"
-import useGetData from "../queryData/queryHooks"
 
 interface Props {
-  list: Room,
-  id: number,
+  list: Room
   isPined: boolean
 }
 
-export default React.memo(function ReservationBox({list, id, isPined}: Props) {
-  console.log(`ReservableBox${list.name}`)
+export default React.memo(function ReservableBox({list, isPined}: Props) {
 
   const nav = useNavigate()
   
-  const addMutation = useAddPined(id, list)
+  const addMutation = useAddPined(list)
   const subMutation = useDeletePined(Number(list.id))
     
   const clickPinHandle = () => {

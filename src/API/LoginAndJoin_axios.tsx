@@ -1,7 +1,4 @@
-import { useQuery } from "@tanstack/react-query"
 import axios from "axios" 
-import { useNavigate } from "react-router-dom";
-
 
 
 export interface NewUser {
@@ -15,46 +12,29 @@ export interface Login {
   password: string,
 }
 
-interface Active extends NewUser {
-  id: string
+const baseURL = `http://localhost:4000/users`
+//login
+export const getUsers = async(user: Login) => {
+ const {data, status} = await axios.get(baseURL)
+ if(status === 500 ) {
+  alert('다시 시도해주세요!')
+  return
+}
+ const userInfo = data.find(({ email, password }: Login) => email === user.email && password === user.password)
+ if(userInfo !== undefined) {
+  const setUser = { ...userInfo }
+  delete setUser.password
+  return setUser
+ } else alert('아이디 및 패스워드가 일치하지 않습니다')
 }
 
- 
-//User
-const fetchUser = async() => {
- return await axios.get(`http://localhost:4000/users`)
-}
-// export const Login = (loginData: Login) => {
-//   const findUser = fetchUser()
-//   findUser
-//   .then(users => 
-//     users.find((user: Login) => user.email === loginData.email && user.password === loginData.password))
-//   .then(result => {
-//     if(result) {
-//       window.localStorage.setItem('name', result.name)
-//       window.localStorage.setItem('email', result.email)
-//       window.localStorage.setItem('key', result.id)
-//       window.location.replace('http://localhost:3000/')
-//     } else {
-//       alert('이메일 및 패스워드가 확인되지 않습니다 다시 입력해주세요!')
-//     }
-//   })
-//   .catch(e => alert(e.message))
-// } 
-
-export const useLogin = () => {
-  return useQuery(['@user'], fetchUser, {
-    onError: (e: any) => {
-     alert(e.message)
-    }
-  })
-}
-
+//join
 export const JoinUser = async(data: NewUser) => {
   try{
-    return await axios.post('http://localhost:4000/users', data)
+    return await axios.post(baseURL, data)
   } catch(e: any){
     alert(`${e.message} 다시 시도해주세요`)
   }
 };
+
 

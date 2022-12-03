@@ -1,10 +1,11 @@
 import React, { useEffect } from "react"
 import { useState } from "react"
 import styled from "styled-components"
-import useGetData from "../queryData/queryHooks"
+import useGetData from "../storedData/queryHooks"
 import { Room } from "../../types"
 import PinedListBox from "./PinedListBox"
 import { useGetPinedList } from "../../API/TravelMange_axios"
+import { getEnded, getTravelId } from "../storedData/localStorage"
 
 
 // interface Props {
@@ -14,12 +15,12 @@ import { useGetPinedList } from "../../API/TravelMange_axios"
 export default function PinedListTab() {
   const [ pineds, setPineds] = useState<Room[] | []>([])
   const {data, status} = useGetPinedList()
-
-  const ended = window.localStorage.getItem('ended')
+  
+  const ended = getEnded()
 
   useEffect(() => {
     if(status === 'success')
-    setPineds(data.data)
+    setPineds(data)
   })
 
   return (
@@ -33,7 +34,7 @@ export default function PinedListTab() {
             </>
           )
         })
-        : <S.Messge>{Number(ended) < 0 ? '여행 일정이 끝났습니다' : '아직 저장한 리스트가 없습니다!'} </S.Messge>
+        : <S.Messge>{ended < 0 ? '여행 일정이 끝났습니다' : '아직 저장한 리스트가 없습니다!'} </S.Messge>
       }
     </>
   )

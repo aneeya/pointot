@@ -12,18 +12,18 @@ import PopupLayout from "../components/layout/PopupLayout"
 import PinedListMemo from "../components/component/PinedListMemo"
 import ReservationUI from "../components/component/ReservationUI"
 import RecommendationTab from "../components/component/RecommendationTab"
-import React from "react"
+import { Active } from "../components/areas/Header"
 
 
 
-export default function RoomPage() {
+export default function RoomPage({logined}: Active) {
+  if(!logined) return null
   const [ pinState, setPinState ] = useState(false)
   const [ memo, setMemo ] = useState(false)
 
   const param = useParams()
   
-  const room = useDetailView(Number(param.room))
-  const {data, status} = room
+  const {data, status} = useDetailView(Number(param.room))
   const pineds = useGetPinedList()
   
   const subMutation = useDeletePined(Number(param.room))
@@ -41,64 +41,66 @@ export default function RoomPage() {
   }
 
   useEffect(() => {
-    if(status === 'success' && pineds.status === 'success') {
-      const pinedList = pineds.data?.data.pineds.find((list: { id: number }) => list.id === Number(param.room))
-      const init = pinedList !== undefined
-      setPinState(init)
+    if(pineds.status === 'success') {
+      const pinedList = pineds.data.find((list: { id: number }) => list.id === Number(param.room))
+      const initPinState = pinedList !== undefined
+      setPinState(initPinState)
     }
   })
 
+  
   return (
     <>
-      {memo && <PopupLayout render={<PinedListMemo data={data?.data} clickMemo={clickMemo}/>}/>}
-      <S.Layout>
-        <S.RoomImg></S.RoomImg>
-        <S.Room>
-          <S.Info>
-            <S.Name>{data?.data.name}</S.Name>
-            <S.HostInfo>
-              <S.HostH3>hostinfo</S.HostH3>
-              <S.HostProfile>
-                <S.HostImg src={smile} alt="호스트이미지"/>
-                <S.HostName>{data?.data.hostName}</S.HostName>
-              </S.HostProfile>
-              <S.HostContact>
-                <S.HostSpan>연락처</S.HostSpan>
-                <S.HostA href={`tel:+${data?.data.phone}`}>{data?.data.phone}</S.HostA>
-              </S.HostContact>
-            </S.HostInfo>
-            <S.RoomInfo>
-              <S.Pin role="button" aria-label="저장핀" theme={pinState? pined : pin} onClick={clickPinHandle}/>
-              <S.RoomH3>roominfo</S.RoomH3>
-              <S.RoomDes>
-                <S.RoomT>
-                  <S.RoomH>주소</S.RoomH>
-                  <S.RoomB as='span'>{data?.data.city}...</S.RoomB>
-                </S.RoomT>
-                <S.RoomT>
-                  <S.RoomH>예약가능수</S.RoomH>
-                  <S.RoomB as='span'>{data?.data.nthOfPeople}</S.RoomB>
-                </S.RoomT>
-                <S.RoomT>
-                  <S.RoomH>1박요금</S.RoomH>
-                  <S.RoomB as='span' style={{fontWeight: '600'}}>{getCost(data?.data.price)}</S.RoomB>
-                </S.RoomT>
-                <S.RoomT>
-                  <S.RoomH>홈페이지</S.RoomH>
-                  <S.RoomA href={data?.data.hompage}>{data?.data.hompage}</S.RoomA>
-                </S.RoomT>
-                <S.RoomP>{data?.data.description}</S.RoomP>
-              </S.RoomDes>
-            </S.RoomInfo>
-            <RecommendationTab id={Number(param.room)}/>
-          </S.Info>
-          <ReservationUI 
-            data={pineds.data?.data !== undefined ? pineds.data?.data : ''}
-            room={data?.data !== undefined? data?.data : ''}/>
-          {/* 브라우저 새로 고침시 data로 전달된 값이 undefined가 되어 Error Boundaries 일어남 '
-          data전달값을 조건부로 달아줬을때 새로 고침됬을때 undefined가 안나타남 정확환 원인은 아직 모르겠음 */}
-        </S.Room>
-      </S.Layout>
+    {
+      status === 'success' 
+      &&
+      <>  
+        {memo && <PopupLayout render={<PinedListMemo data={data} clickMemo={clickMemo}/>}/>}
+        <S.Layout>
+          <S.RoomImg></S.RoomImg>
+          <S.Room>
+            <S.Info>
+              <S.Name>{data.name}</S.Name>
+              <S.HostInfo>
+                <S.HostH3>hostinfo</S.HostH3>
+                <S.HostProfile>
+                  <S.HostImg src={smile} alt="호스트이미지"/>
+                  <S.HostName>{data.hostName}</S.HostName>
+                </S.HostProfile>
+                <S.HostContact>
+                  <S.HostSpan>연락처</S.HostSpan>
+                  <S.HostA href={`tel:+${data.phone}`}>{data.phone}</S.HostA>
+                </S.HostContact>
+              </S.HostInfo>
+              <S.RoomInfo>
+                <S.Pin role="button" aria-label="저장핀" theme={pinState? pined : pin} onClick={clickPinHandle}/>
+                <S.RoomH3>roominfo</S.RoomH3>
+                <S.RoomDes>
+                  <S.RoomT>
+                    <S.RoomH>주소</S.RoomH>
+                    <S.RoomB as='span'>{data.city}...</S.RoomB>
+                  </S.RoomT>
+                  <S.RoomT>
+                    <S.RoomH>예약가능수</S.RoomH>
+                    <S.RoomB as='span'>{data.nthOfPeople}</S.RoomB>
+                  </S.RoomT>
+                  <S.RoomT>
+                    <S.RoomH>1박요금</S.RoomH>
+                    <S.RoomB as='span' style={{fontWeight: '600'}}>{getCost(data.price)}</S.RoomB>
+                  </S.RoomT>
+                  <S.RoomT>
+                    <S.RoomH>홈페이지</S.RoomH>
+                    <S.RoomA href={data.hompage}>{data.hompage}</S.RoomA>
+                  </S.RoomT>
+                  <S.RoomP>{data.description}</S.RoomP>
+                </S.RoomDes>
+              </S.RoomInfo>
+              <RecommendationTab id={Number(param.room)}/>
+            </S.Info>
+            <ReservationUI room={data}/>
+          </S.Room>
+        </S.Layout>
+      </>}
     </>
   )
 }
