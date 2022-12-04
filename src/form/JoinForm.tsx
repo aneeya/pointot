@@ -29,7 +29,7 @@ export default function JoinForm() {
             이메일
             <S.Input 
               type="email" 
-              placeholder="abc@zerobnb.com" 
+              placeholder="abc@pointot.com" 
               name="email"
               required
               onChange={changeValue}/>
@@ -38,7 +38,7 @@ export default function JoinForm() {
             닉네임
             <S.Input 
               type="text" 
-              placeholder="zerobnb" 
+              placeholder="pointot" 
               name="name"
               required
               onChange={changeValue}/>
@@ -75,8 +75,8 @@ S.Form = styled.form`
 S.Label = styled.label`
   display: flex;
   flex-direction: column;
-  margin-bottom: 3rem;
-  font-size: 2.2rem;
+  margin-bottom: 2rem;
+  font-size: 1.8rem;
   font-weight: 600;
 `
 S.Input = styled.input`
@@ -85,12 +85,16 @@ S.Input = styled.input`
   margin-top: 1.5rem;
   padding: 1rem;
   font-size: 1.6rem;
-  border: 1px solid var(--main-color1-1);
-  border-radius: 1.5rem;
+  border: 1px solid var(--color-gray1);
+  border-radius: 1.3rem;
+  &::placeholder {
+    font-size: 1.4rem;
+    color: var(--color-gray1);
+  }
 `
 S.ButtonDiv = styled.div`
   display: flex;
   justify-content: space-between;
-  width: 16.5rem;
-  margin-top: 6rem;
+  width: 17rem;
+  margin-top: 2rem;
 `

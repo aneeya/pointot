@@ -29,6 +29,6 @@ S.Button = styled.button`
 	cursor: pointer;
 	&:hover,
 	&:focus {
-		box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3)
+		box-shadow: 2px 2px  var(--main-color1-1);
 	}
 `

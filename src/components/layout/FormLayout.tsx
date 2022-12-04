@@ -28,12 +28,12 @@ S.Back = styled.div`
   width: 100%;
   height: 100vh;
   padding-top: 12rem;
-  background: var(--main-color1-1);
+  background: var(--color-white);
 `
 S.Logo = styled.img`
   display: block;
   width: 25rem;
-  margin: 0 auto 3rem;
+  margin: 5rem auto 2rem;
 `
 S.Layout = styled.div`
   display: flex;
@@ -42,15 +42,14 @@ S.Layout = styled.div`
   width: 80rem;
   height: 70rem;
   margin: 0 auto;
-  padding-top: 5.5rem;
+  padding-top: 3rem;
   background: var(--color-white);
-  border-radius: 6rem;
-  border-right: 8px solid var(--main-color1);
+  border-radius: 3rem;
 `
 S.H2 = styled.h2`
   font-size: 2.8rem;
   font-weight: 600;
 `
 S.RDiv = styled.div`
-  margin-top: 6rem;
+  margin-top: 5rem;
 `

@@ -65,7 +65,7 @@ S.Main = styled.main`
   position: relative;
   width: 100%;
   height: 79.9rem;
-  padding-top: 14rem;
+  padding-top: 20rem;
 `
 
 S.Background = styled.div`
@@ -92,7 +92,7 @@ S.H2 = styled.h2`
   margin-bottom: 7rem;
 `
 S.Logo = styled.img`
-  width: 39.8rem;
+  width: 34rem;
   margin-bottom: 7rem;
 `
 S.DesDiv = styled.div`

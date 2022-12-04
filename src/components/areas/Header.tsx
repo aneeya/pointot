@@ -13,7 +13,6 @@ export interface Active {
 }
 
 export default function Header({logined, isLogined}: Active) {
-  const [ openLogin, setOpenLogin ] = useState(false)
   const [ userName, setUserName ] = useState('')
   const nav = useNavigate()
 
@@ -34,9 +33,9 @@ export default function Header({logined, isLogined}: Active) {
     <>
       <S.Header>
         <S.Div>
-          <div>
+          <h1>
             <S.Home src={logo} alt="홈으로가기" role="button" onClick={() => nav('/')}/>
-          </div>
+          </h1>
           <S.LoginDiv>
             {
               logined 
@@ -48,14 +47,9 @@ export default function Header({logined, isLogined}: Active) {
                 </>
                 :
                 <>
-                  <S.Button type="button" onClick={() => setOpenLogin(true)}>로그인</S.Button>
+                  <S.Button type="button" onClick={() => nav('/login')}>로그인</S.Button>
                   <S.Span aria-hidden="true">|</S.Span>
                   <S.Button type="button" onClick={() => nav('/join')}>회원가입</S.Button>
-                  {openLogin && 
-                  <S.FormDiv>
-                    <LoginForm 
-                      onClick={() => setOpenLogin(false)}/>
-                  </S.FormDiv>}
                 </>
             }
           </S.LoginDiv>

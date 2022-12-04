@@ -4,11 +4,8 @@ import Button from "../components/common/Button";
 import { getUsers } from "../API/LoginAndJoin_axios";
 import { useNavigate } from "react-router-dom";
 
-interface Props {
-  onClick: () => void
-}
 
-export default function LoginForm({onClick}: Props) {
+export default function LoginForm() {
   const [ user, setUser ] = useState({email: "", password: ""})
   const nav = useNavigate()
 
@@ -22,7 +19,7 @@ export default function LoginForm({onClick}: Props) {
     
     if(userInfo !== undefined) {
       window.localStorage.setItem('user', JSON.stringify(userInfo))
-      window.location.reload()
+      window.location.replace('http://localhost:3000/')
     }
   }
 
@@ -42,7 +39,7 @@ export default function LoginForm({onClick}: Props) {
         </div>
         <S.ButtonDiv>
           <Button type="submit" text="확인" />
-          <Button type="button" text="취소" onClick={onClick}/>
+          <Button type="button" text="취소" onClick={() => nav('/')}/>
         </S.ButtonDiv>
       </S.Form>
     </>
@@ -67,17 +64,17 @@ S.Label = styled.label`
   font-weight: 600;
 `
 S.Input = styled.input`
-  width: 25rem;
-  height: 4rem;
-  margin-top: 1rem;
+  width: 30rem;
+  height: 5.5rem;
+  margin-top: 1.5rem;
   padding: 1rem;
-  border: none;
-  border-bottom: 1px solid var(--color-gray1);
   font-size: 1.6rem;
+  border: 1px solid var(--color-gray1);
+  border-radius: 1.3rem;
 `
 S.ButtonDiv = styled.div`
   display: flex;
   justify-content: space-between;
-  width: 16.5rem;
+  width: 17rem;
   margin-top: 1rem;
 `

@@ -101,7 +101,7 @@ useEffect(() => {
           </S.Label>
           <S.Label>
             여행지
-            <S.SelectDiv>
+            <S.SelectCity>
               <S.Select as="select" name="city" required onChange={changeValue}>
                 <option selected>여행지를 선택하세요!</option>
                 {cityList.map((data: { cityE: string ; city: string }) => {
@@ -109,7 +109,7 @@ useEffect(() => {
                 })}
               </S.Select>
               <S.OptionIco></S.OptionIco>
-            </S.SelectDiv>
+            </S.SelectCity>
           </S.Label>
           <S.Dates>
             <S.DateLabel>
@@ -126,10 +126,10 @@ useEffect(() => {
                 <S.DateInput type="text" id="endDate" name="endDate" defaultValue={schedule.endDate}/>
               </S.SelectDate>
             </S.DateLabel>
-            <S.Calendar id="calendar"><Calendar pickData={pickData}/></S.Calendar>
           </S.Dates>
         </S.FormlDiv>
         <S.Messge>{message}</S.Messge>
+        <S.Calendar id="calendar"><Calendar pickData={pickData}/></S.Calendar>
         <S.ButtonDiv>
           <S.Button type="submit" onClick={clickButtonAbled}>등록</S.Button>
           <S.Button type="button" onClick={() => nav('/')}>취소</S.Button>
@@ -144,29 +144,26 @@ useEffect(() => {
 const S: any = {}
 
 S.Form = styled.form`
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  height: 45rem;
-  margin-top: 5rem;
+  height: 38rem;
 `
 S.FormlDiv = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
   flex-wrap: wrap;
-  width: 60rem;
+  width: 70rem;
   height: 28rem;
-  margin-left: 3rem;
 `
 S.Label = styled.label`
   display: flex;
   flex-direction: column;
-  width: 25rem;
-  height: 8.8rem;
-  margin-right: 5rem;
-  margin-bottom: 3rem;
-  font-size: 2rem;
+  margin-bottom: 2rem;
+  font-size: 1.8rem;
   font-weight: 600;
 `
 S.DateLabel = styled(S.Label)`
@@ -174,14 +171,13 @@ S.DateLabel = styled(S.Label)`
 `
 
 S.Input = styled.input`
-  width: 24rem;
-  height: 4rem;
-  margin-top: 1rem;
+  width: 30rem;
+  height: 5.5rem;
+  margin-top: 1.5rem;
   padding: 1rem;
   font-size: 1.6rem;
-  border: none;
-  border-bottom: 1px solid var(--color-gray1);
-  cursor: ${(props) => props.theme ? `${props.theme}` : 'none'}
+  border: 1px solid var(--color-gray1);
+  border-radius: 1.3rem;
 `
 S.Dates = styled.div`
   position: relative;
@@ -193,22 +189,15 @@ S.SelectDate = styled.div`
   display: inline-flex;
   align-items: end;
   justiy-content: space-between;
-  margin-top: 1.5rem;
   margin-right: 2rem;
 `
-S.DateInput = styled.input`
-  width: 21.5rem;
-  height: 3rem;
-  padding-left: 1rem;
-  border: 0;
-  border-bottom: 1px solid var(--color-gray1);
-  font-size: 1.5rem;
-  &::-webkit-calendar-picker-indicator {
-    -webkit-appearance: none;
-    appearance: none;
-  }
+S.DateInput = styled(S.Input)`
+  padding-left: 4rem;
 `
 S.DateButton = styled.img`
+  position: absolute;
+  top: 61%;
+  left: 5%;
   width: 1.6rem;
   margin-right: 0.8rem;
   cursor: pointer;
@@ -216,20 +205,14 @@ S.DateButton = styled.img`
 S.Calendar = styled.div`
   display: none;
   position: absolute;
-  top: rem;
-  right: -30rem;
+  top: 0;
+  right: -43%;
   z-index: 10;
   width: 33rem;
   height: 34rem;
 `
-S.Cost = styled.div`
-  display: flex;
-  width:30rem;
-  justify-content: space-between;
-  font-size: 1.8rem;
-  color: var(--main-color1-1);
-`
-S.SelectDiv = styled.div`
+
+S.SelectCity = styled.div`
   position: relative;
   background: rgba(0, 0, 0, 0);
 `
@@ -245,8 +228,8 @@ S.Select = styled(S.Input)`
 `
 S.OptionIco = styled.span`
   position: absolute;
-  bottom: 1rem;
-  right: 2rem;
+  bottom: 25%;
+  right: 25%;
   display: block;
   width: 1.3rem;
   height: 1.3rem;
@@ -281,6 +264,6 @@ S.Button = styled.button`
 	cursor: pointer;
 	&:hover,
 	&:focus {
-		box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3)
+		box-shadow: 2px 2px  var(--main-color1-1);
 	}
 `
