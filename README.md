@@ -56,4 +56,4 @@ crud 및 상태관리를 연습하기 위해 만든 개인 프로젝트입니다
 + react-query
 
 ### 화면구조 및 컴포넌트 구조
-<a herf="https://velog.io/@wnjqkwnj/pointot-component%EA%B5%AC%EC%84%B1">pointot-component</a>
+[pointot-component](https://velog.io/@wnjqkwnj/pointot-component%EA%B5%AC%EC%84%B1)
