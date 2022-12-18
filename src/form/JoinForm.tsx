@@ -2,7 +2,7 @@ import { AxiosResponse } from "axios";
 import { ChangeEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import Button from "../components/common/Button";
+import Button from "../common/Button";
 import { JoinUser } from "../API/LoginAndJoin_axios";
 
 export default function JoinForm() {

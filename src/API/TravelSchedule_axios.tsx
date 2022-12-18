@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import axios from "axios"
 import { useNavigate } from "react-router-dom"
-import { getSelected, getTravelId } from "../components/storedData/localStorage"
+import { getSelected, getTravelId } from "../storedData/localStorage"
 import { EditSchedule, Schedule } from "../types"
 
 
@@ -34,17 +34,20 @@ const editTitle = async(data: string) => {
 }
 
 export const useEditTitle = (data: string, edits: EditSchedule, callback: () => void) => {
+  const query = useQueryClient()
   return useMutation(() => editTitle(data), {
     onError: (e: any) => {
       alert(`${e.message} 다시시도해주세요`)
     },
     onSuccess: () => {
+      query.invalidateQueries(['@reserve'])
       const editContet = { ...edits, title: data}
       window.localStorage.setItem('selectedSchedule', JSON.stringify(editContet))
       callback()
     }
   })
 }
+
 
 const editSchedule = async(data: EditSchedule) => {
   const travelId = getTravelId()
@@ -58,7 +61,8 @@ export const useEditSchedule = (data: EditSchedule) => {
 
   return useMutation(() => editSchedule(data), {
     onSuccess: () => {
-      query.invalidateQueries(['@schedules'])
+      query.invalidateQueries(['@reserve'])
+      query.refetchQueries(['@reserve'])
       const editContet = { ...getSelected(), city, startDate, endDate}
       window.localStorage.setItem('selectedSchedule', JSON.stringify(editContet))
       nav('/')

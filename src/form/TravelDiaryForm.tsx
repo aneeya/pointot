@@ -1,22 +1,23 @@
 import { useState, MouseEvent, ChangeEvent } from "react"
 import styled from "styled-components"
-import Button from "../components/common/Button"
+import Button from "../common/Button"
 
 import logo from "../assets/logo.png"
 import prev from "../assets/icons/prev.png"
 import spring from "../assets/icons/spring.png"
 import { useDiaryRegist } from "../API/TravelMange_axios"
 import { Diary } from "../types"
+import { useDiaryTitle} from "../storedData/queryHooks"
+import { useNavigate } from "react-router-dom"
 
 interface Props {
-  name: string,
-  roomId: number,
-  clickCancel: () => void
+  name: string
 }
 
-export default function TravelDiaryForm({name, roomId, clickCancel}: Props) {
+export default function TravelDiaryForm({name}: Props) {
+  const { id } = useDiaryTitle(name)
   const init: Diary = {
-    roomId: roomId,
+    roomId: id,
     theme: '',
     name: '',
     images: [],
@@ -26,8 +27,9 @@ export default function TravelDiaryForm({name, roomId, clickCancel}: Props) {
 
   const [ formData, setFormData ] = useState(init)
   const [ move, setMove ] = useState(0)
+  const nav = useNavigate()
 
-  const registMutation = useDiaryRegist(formData, clickCancel)
+  const registMutation = useDiaryRegist(formData)
 
   const clickCarousel = (e: MouseEvent<HTMLButtonElement>) => {
     const target = (e.target as HTMLButtonElement).innerText
@@ -69,7 +71,7 @@ export default function TravelDiaryForm({name, roomId, clickCancel}: Props) {
     <>
       <S.Layout>
         <S.LogoArea>
-          <S.PrevImg src={prev} alt="돌아가기" role="button" onClick={clickCancel}/>
+          <S.PrevImg src={prev} alt="돌아가기" role="button" onClick={() => nav('/')}/>
           <S.Logo src={logo} alt="zerobnb" />
         </S.LogoArea>
         <S.Accommodation>
@@ -343,13 +345,14 @@ S.ButtonArea = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 16.5rem;
+  margin-top: 3rem;
 `
 S.Button = styled.button`
 	width: 8rem;
 	height: 4.5rem;
 	background: var(--main-color1);
 	border: 1px solid var(--main-color1-1);
-	border-radius: 1.5rem;
+	border-radius: 2rem;
 	color: var(--color-white);
 	font-size: 1.6rem;
 	font-weight: 600;

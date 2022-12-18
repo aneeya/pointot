@@ -8,11 +8,11 @@ import pin from "../assets/icons/pin.png"
 import pined from "../assets/icons/pin2.png"
 
 import { useDetailView, useGetPinedList, useDeletePined } from "../API/TravelMange_axios"
-import PopupLayout from "../components/layout/PopupLayout"
-import PinedListMemo from "../components/component/PinedListMemo"
-import ReservationUI from "../components/component/ReservationUI"
-import RecommendationTab from "../components/component/RecommendationTab"
-import { Active } from "../components/areas/Header"
+import PopupLayout from "../layout/PopupLayout"
+import { Active } from "../areas/Header"
+import PinedListMemo from "../components/PinedListMemo"
+import RecommendationTab from "../components/RecommendationTab"
+import ReservationUI from "../components/ReservationUI"
 
 
 

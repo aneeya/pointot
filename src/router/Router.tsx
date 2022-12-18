@@ -1,13 +1,13 @@
 import { useState } from "react"
 import { BrowserRouter, Routes, Route } from "react-router-dom"
-import Header from "../components/areas/Header"
-import FormLayout from "../components/layout/FormLayout"
-import JoinForm from "../form/JoinForm"
+import Header from "../areas/Header"
 import MainPage from "../pages/MainPage"
 import RoomPage from "../pages/RoomPage"
-import ScheduleRegisterFom from "../form/ScheduleRegisterFom"
-import ScheduleModifyForm from "../form/ScheduleModifyForm"
-import LoginForm from "../form/LoginForm"
+import RegisterDiaryPage from "../pages/RegisterDiaryPage"
+import JoinPage from "../pages/JoinPage"
+import LoginPage from "../pages/LoginPage"
+import RegisterSchedulePage from "../pages/RegisterSchedulePage"
+import ModifySchedulePage from "../pages/ModifySchedulePage"
 
 const Router = () => {
 	const key = window.localStorage.getItem('user')
@@ -18,11 +18,14 @@ const Router = () => {
 			<Routes>
 				<Route path="/" element={<Header logined={logined} isLogined={() => setLogined(false)}/>}>
 					<Route path="/" element={<MainPage logined={logined}/>}/>
-					<Route path="join" element={<FormLayout title='회원가입' render={<JoinForm />} />} />
-					<Route path="login" element={<FormLayout title='로그인' render={<LoginForm />} />} />
-					<Route path="scheduleResister" element={<FormLayout title='여행 일정 등록' render={<ScheduleRegisterFom/>} />} />
-					<Route path="scheduleModify" element={<FormLayout title='여행 일정 수정' render={<ScheduleModifyForm/>}/>}/>
+					<Route path="join" element={<JoinPage/>} />
+					<Route path="login" element={<LoginPage/>} />
+					<Route path="scheduleRegister" element={<RegisterSchedulePage/>} />
+					<Route path="scheduleModify" element={<ModifySchedulePage/>}/>
 					<Route path=":room" element={<RoomPage logined={logined}/>} />
+					<Route path="diaryRegister">
+					<Route path=":roomName" element={<RegisterDiaryPage/>} />
+					</Route>
 				</Route>
 			</Routes>
 		</BrowserRouter>

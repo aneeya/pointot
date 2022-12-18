@@ -1,15 +1,15 @@
-import { ChangeEvent, MouseEvent, useEffect, useState } from "react"
+import { ChangeEvent, useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 
 import styled from "styled-components"
 
-import Calendar from "../components/common/Calendar"
+import Calendar from "../common/Calendar"
 
 import { useAddSchedule } from "../API/TravelSchedule_axios"
 
 import ico from "../assets/icons/calendar.png"
-import { cityList } from "../components/storedData/cityList"
-import { getUser } from "../components/storedData/localStorage"
+import { cityList } from "../storedData/cityList"
+import { getUser } from "../storedData/localStorage"
 
 const initValue = {
   email: getUser().email,
@@ -22,7 +22,6 @@ const initValue = {
 export default function ScheduleRegisterFom() {
   const [ schedule, setSchedule ] = useState(initValue) 
   const [ message, setMesseage ] = useState('')
-
   const addMutation = useAddSchedule(schedule)
 
   const nav = useNavigate()
@@ -229,7 +228,7 @@ S.Select = styled(S.Input)`
 S.OptionIco = styled.span`
   position: absolute;
   bottom: 25%;
-  right: 25%;
+  right: 5%;
   display: block;
   width: 1.3rem;
   height: 1.3rem;

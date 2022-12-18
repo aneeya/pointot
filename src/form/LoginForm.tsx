@@ -1,6 +1,6 @@
 import { ChangeEvent, useState } from "react";
 import styled from "styled-components";
-import Button from "../components/common/Button";
+import Button from "../common/Button";
 import { getUsers } from "../API/LoginAndJoin_axios";
 import { useNavigate } from "react-router-dom";
 

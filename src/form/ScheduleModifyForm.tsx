@@ -2,9 +2,9 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useEditSchedule } from "../API/TravelSchedule_axios";
-import Calendar from "../components/common/Calendar";
-import { cityList } from "../components/storedData/cityList";
-import { getSelected } from "../components/storedData/localStorage";
+import Calendar from "../common/Calendar";
+import { cityList } from "../storedData/cityList";
+import { getSelected } from "../storedData/localStorage";
 
 
 export default function ScheduleModifyForm() {

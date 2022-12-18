@@ -2,6 +2,8 @@
 
 ## 정의
 숙박을 중심으로 여행지를 탐색하고 이용후, 숙소 근처 여행지를 소개할 수 있는 웹사이트 입니다.
+<a href="https://velog.io/@wnjqkwnj/project%EA%B8%B0%ED%9A%8D">
+
 ### 서비스 종류
 + 여행 스케줄 관리
 + 숙소 탐색
@@ -42,3 +44,16 @@ crud 및 상태관리를 연습하기 위해 만든 개인 프로젝트입니다
 
 ### 예약취소하기
 + 예약목록에서 취소 버튼시 예약 취소됨
+
+## API
+<img src="https://velog.velcdn.com/images/wnjqkwnj/post/6753036d-6638-4ab8-90d8-57072aeab4bc/image.jpg">
+<a href="https://velog.io/@wnjqkwnj/pointot-data">
+
+### 🔧기술스택
++ react(CRA)
++ typescript
++ styled-compontnet
++ react-query
+
+### 화면구조 및 컴포넌트 구조
+<a herf="https://velog.io/@wnjqkwnj/pointot-component%EA%B5%AC%EC%84%B1">

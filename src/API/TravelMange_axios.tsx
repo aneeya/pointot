@@ -1,7 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import axios from "axios"
 import { useNavigate } from "react-router-dom"
-import { getSelected, getTravelId, getUser } from "../components/storedData/localStorage"
+import { getSelected, getTravelId, getUser } from "../storedData/localStorage"
 import { Diary, Reserve, Room, Schedule } from "../types"
 
 
@@ -27,7 +27,8 @@ export const useStoredDates = () => {
 
 export const getReservable = async() => {
   const { city } = getSelected()
-  return await axios.get(`http://localhost:4000/rooms?city=${city}`)
+  const res =  await axios.get(`http://localhost:4000/rooms?city=${city}`)
+  return res.data
 }
 
 export const useReservableList = () => {
@@ -183,23 +184,26 @@ const postDiary = async(data: Diary) => {
   return await axios.post(`http://localhost:4000/pasts`, data)
 }
 
-export const useDiaryRegist = (data: Diary, callback: () => void) => {
+export const useDiaryRegist = (data: Diary) => {
   const query = useQueryClient()
+  const nav = useNavigate()
+
   return useMutation(() => postDiary(data), {
     onError: (e: any) => {
       alert(`${e.message}다시 시도해주세요ㅠ`)
     },
     onSuccess: () => {
-      query.invalidateQueries(['@travelDiary'])
+      query.refetchQueries(['@travelDiary'])
       alert('등록이 완료되었습니다')
-      callback()
+      nav('/')
     }
   })
 }
 
 //여행기록 리스트 불러오기
 const getDiary = async(id: number) => {
-  return await axios.get(`http://localhost:4000/pasts?roomId=${id}`)
+  const res = await axios.get(`http://localhost:4000/pasts?roomId=${id}`)
+  return res.data
 }
 
 export const useDiaryList = (id: number) => {
@@ -209,7 +213,7 @@ export const useDiaryList = (id: number) => {
       alert(`${e.message}등록한 기록들을 로드하지 못했습니다`)
     },
     onSuccess: (data) => {
-      const recommends = data.data
+      const recommends = data
       query.setQueryData(['@travelDiary', '맛집'], recommends.filter( (list: { theme: string }) => list.theme === '맛집'))
       query.setQueryData(['@travelDiary', '카페'], recommends.filter( (list: { theme: string }) => list.theme === '카페'))
       query.setQueryData(['@travelDiary', '문화'], recommends.filter( (list: { theme: string }) => list.theme === '문화'))
@@ -224,7 +228,7 @@ const deleteDiary =  async(id: number) => {
   return await axios.delete(`http://localhost:4000/pasts/${id}`)
 }
 
-export const useDeleteDiary = (id: number, callback:() => void) => {
+export const useDeleteDiary = (id: number) => {
   const query = useQueryClient()
   return useMutation(() => deleteDiary(id), {
     onError: (e: any) => {
@@ -233,7 +237,6 @@ export const useDeleteDiary = (id: number, callback:() => void) => {
     onSuccess: () => {
       query.invalidateQueries(['@travelDiary'])
       alert('삭제되었습니다!')
-      callback()
     }
   })
 }
