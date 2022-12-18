@@ -2,7 +2,7 @@
 
 ## 정의
 숙박을 중심으로 여행지를 탐색하고 이용후, 숙소 근처 여행지를 소개할 수 있는 웹사이트 입니다.
-<a href="https://velog.io/@wnjqkwnj/project%EA%B8%B0%ED%9A%8D">pointot란</a>
+[pointot란](https://velog.io/@wnjqkwnj/project%EA%B8%B0%ED%9A%8D)
 
 ### 서비스 종류
 + 여행 스케줄 관리
@@ -47,7 +47,8 @@ crud 및 상태관리를 연습하기 위해 만든 개인 프로젝트입니다
 
 ## API
 <img src="https://velog.velcdn.com/images/wnjqkwnj/post/6753036d-6638-4ab8-90d8-57072aeab4bc/image.jpg">
-<a href="https://velog.io/@wnjqkwnj/pointot-data">pointot-data</a>
+
+[pointot-data](https://velog.io/@wnjqkwnj/pointot-data)
 
 ### 🔧기술스택
 + react(CRA)
